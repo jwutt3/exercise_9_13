@@ -97,12 +97,22 @@ public class ATM {
    */
   public double withdraw(double amount) throws IllegalArgumentException {
     if ((amount < 0) || (amount < balance)) {
-      throw new IllegalArgumentException("Invalid withdrawal");
+    	balance = balance - amount;
+    	round(balance,2);
+        numberOfWithdrawals++; 	
     } else {
-      balance = balance - amount;
-      numberOfWithdrawals++;
+    	throw new IllegalArgumentException("Invalid withdrawal");
     }
-    return amount;
+    return balance;
   }
+  
+  public static double round(double value, int places) {
+	    if (places < 0) throw new IllegalArgumentException();
+
+	    long factor = (long) Math.pow(10, places);
+	    value = value * factor;
+	    long tmp = Math.round(value);
+	    return (double) tmp / factor;
+	}
 
 }
